@@ -67,6 +67,9 @@ jobs:
     needs: push-memory
 
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
       - name: connexion ssh
         run: |
             echo "dev" | ssh dev@127.0.0.1 << EOF
