@@ -2,7 +2,7 @@ version: '2.29.7'
 
 services:
   nginx-memory:
-    image: destrujojo/memory
+    image: ${{ secrets.DOCKER_USERNAME }}/memory
     container_name: nginx-memory
     build:
       context: .
