@@ -40,3 +40,13 @@ jobs:
           git push origin develop
         fi
 
+  build-memory:
+    runs-on: self-hosted
+    needs: test-memory
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Build image docker
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/memory .
+
