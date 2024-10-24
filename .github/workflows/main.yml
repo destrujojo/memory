@@ -1,0 +1,42 @@
+name: Workflow memory
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  test-memory:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Test JPG files
+      run: |
+        for file in $(find . -name "*.jpg"); do
+          result=$(file "$file")
+          
+          if [[ "$result" != *"JPEG image data"* ]]; then
+            echo "$file est corrompu, remplacement..."
+            
+            cp /home/dev/image/canard.jpg "$file"
+          else
+            echo "$file est valide."
+          fi
+        done
+
+    - name: Commit changes if any
+      run: |
+        git config --global user.name 'destrujojo'
+        git config --global user.email 'destrujojo@gmail.com'
+        
+        if git diff --quiet; then
+          echo "Aucune modification détectée."
+        else
+          git add .
+          git commit -m "Remplacement des fichiers jpg corrompus"
+          git push origin develop
+        fi
+
