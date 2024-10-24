@@ -63,8 +63,8 @@ jobs:
       - name: Push image docker dans docker hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/memory
   deploy-memory:
-     runs-on: self-hosted
-    needs: push
+    runs-on: self-hosted
+    needs: push-memory
 
     steps:
       - name: connexion ssh
