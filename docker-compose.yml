@@ -1,0 +1,13 @@
+version: '2.29.7'
+
+services:
+  nginx-memory:
+    image: destrujojo/memory
+    container_name: nginx-memory
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+
